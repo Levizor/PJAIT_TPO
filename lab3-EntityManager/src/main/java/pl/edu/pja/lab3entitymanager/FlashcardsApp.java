@@ -1,13 +1,11 @@
-package org.example.lab1;
+package pl.edu.pja.lab3entitymanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Lab1Application {
-
+public class FlashcardsApp {
     public static void main(String[] args) {
-        SpringApplication.run(Lab1Application.class, args);
+        SpringApplication.run(FlashcardsApp.class, args);
     }
-
 }
