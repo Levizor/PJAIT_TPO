@@ -1,0 +1,6 @@
+add - allows to add new word to the repository
+display <language> <asc|desc> - displays all the words from the dictionary ordered by language in ascending or descending
+test - test you knowledge
+search - search for entries
+edit - edit entries database
+quit - quit the application
