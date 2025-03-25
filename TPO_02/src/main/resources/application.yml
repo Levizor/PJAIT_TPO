@@ -1,0 +1,11 @@
+spring:
+  banner:
+    location: logo.txt
+    charset: IBM278
+  profiles:
+    active: Mail
+
+MyApp:
+  values:
+    firstValue: 20
+    secondValue: 10

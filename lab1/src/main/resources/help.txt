@@ -1,4 +1,0 @@
-add - allows to add new word to the repository
-display - displays all the words from the dictionary
-test - test you knowledge
-quit - quit the application

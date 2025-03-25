@@ -1,7 +1,0 @@
-spring:
-  banner:
-    location: logo-app
-  application:
-    name: Flashcards
-  profiles:
-    active: uppercase
