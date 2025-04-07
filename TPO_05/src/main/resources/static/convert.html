@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Converter</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto;">
+
+<h1 style="text-align: center;">Number Base Converter</h1>
+
+<form action="/convert" method="post" style="display: flex; flex-direction: column; gap: 10px;">
+    <fieldset style="border: none; padding: 0;">
+        <label>
+            Number:
+            <input type="number" name="value" required style="margin-left: 10px;">
+        </label>
+        <br>
+        <label>
+            From base:
+            <input type="number" name="fromBase" required style="margin-left: 10px;">
+        </label>
+        <br>
+        <label>
+            To base:
+            <input type="number" name="toBase" required style="margin-left: 22px;">
+        </label>
+    </fieldset>
+
+    <button type="submit" style="width: fit-content; padding: 6px 16px; margin-top: 10px;">Convert</button>
+</form>
+
+</body>
+</html>
