@@ -1,66 +1,86 @@
 package pl.edu.pja.tpo_05;
 
-import java.math.BigInteger;
+import java.util.Arrays;
 
 public class Converter {
+    public static int MIN_BASE = 2;
+    public static int MAX_BASE = 100;
+    public static int PRECISION = 10;
+    public static char[] DIGITS = initDigits();
 
-    private static final int MIN_BASE = 2;
-    private static final int MAX_BASE = 100;
-    private static final char[] DIGITS = initDigits();
-
-    public static String convert(Long value, int fromBase, int toBase) throws IllegalArgumentException {
-        validateBase(fromBase);
-        validateBase(toBase);
-
-        boolean isNegative = value < 0;
-        BigInteger absValue = BigInteger.valueOf(value).abs();
-
-        // Convert to base 10 if necessary
-        BigInteger base10Value = fromBase == 10 ? absValue : fromBaseN(value.toString(), fromBase);
-
-        // Convert to target base
-        String converted = toBaseN(base10Value, toBase);
-
-        return isNegative ? "-" + converted : converted;
-    }
-
-    private static void validateBase(int base) throws IllegalArgumentException {
-        if (base < MIN_BASE || base > MAX_BASE) {
-            throw new IllegalArgumentException("Base must be between 2 and 100.");
-        }
-    }
-
-    private static char[] initDigits() {
-        char[] digits = new char[MAX_BASE];
-        int index = 0;
-
-        for (char c = '0'; c <= '9' && index < MAX_BASE; c++) digits[index++] = c;
-        for (char c = 'A'; c <= 'Z' && index < MAX_BASE; c++) digits[index++] = c;
-        for (char c = 'a'; c <= 'z' && index < MAX_BASE; c++) digits[index++] = c;
-        for (char c = 33; c <= 126 && index < MAX_BASE; c++) {
-            if (!Character.isLetterOrDigit(c)) digits[index++] = c;
+    public static String convert(String value, int fromBase, int toBase) throws IllegalArgumentException {
+        value = value.trim();
+        if (fromBase < MIN_BASE || fromBase > MAX_BASE ) {
+            throw new IllegalArgumentException("fromBase outside the allowed range");
         }
 
-        return digits;
-    }
+        if (toBase < MIN_BASE || toBase > MAX_BASE) {
+            throw new IllegalArgumentException("toBase outside the allowed range");
+        }
 
-    private static BigInteger fromBaseN(String value, int fromBase) {
         boolean isNegative = value.startsWith("-");
-        String cleanValue = isNegative ? value.substring(1) : value;
-
-        BigInteger result = BigInteger.ZERO;
-        BigInteger base = BigInteger.valueOf(fromBase);
-
-        for (int i = 0; i < cleanValue.length(); i++) {
-            char c = cleanValue.charAt(i);
-            int digit = charToDigit(c);
-            if (digit >= fromBase) {
-                throw new IllegalArgumentException("Invalid numeric value for the given base: digit '" + c + "' for base " + fromBase);
-            }
-            result = result.multiply(base).add(BigInteger.valueOf(digit));
+        if (isNegative) {
+            value = value.substring(1);
         }
 
-        return isNegative ? result.negate() : result;
+        String[] split = value.split("\\.");
+        String intPart = split[0];
+        String fracPart = split.length > 1 ? split[1] : "";
+
+        double base10 = convertToBase10(intPart, fracPart, fromBase);
+
+        long intPart10 = (long) base10;
+        double fracPart10 = base10 - intPart10;
+
+        intPart = toBaseN(intPart10, toBase);
+        fracPart = toBaseNFrac(fracPart10, toBase);
+
+        String result = intPart + (fracPart.isEmpty() ? "" : "." + fracPart);
+        return isNegative ? "-" + result : result;
+    }
+
+    private static double convertToBase10(String intPart, String fracPart, int base) {
+        double result = 0;
+
+        for (int i = 0; i < intPart.length(); i++) {
+            int digit = charToDigit(intPart.charAt(i));
+            if (digit >= base) throw new IllegalArgumentException("Invalid numeric value:  '" + intPart.charAt(i) + "' for base " + base);
+            result = result * base + digit;
+        }
+
+        double fraction = 0;
+        double divisor = base;
+        for (int i = 0; i < fracPart.length(); i++) {
+            int digit = charToDigit(fracPart.charAt(i));
+            if (digit >= base) throw new IllegalArgumentException("Invalid numeric value:  '" + fracPart.charAt(i) + "' for base " + base);
+            fraction += digit / divisor;
+            divisor *= base;
+        }
+
+        return result + fraction;
+    }
+
+    private static String toBaseN(long value, int base) {
+        if (value == 0) return "0";
+
+        StringBuilder result = new StringBuilder();
+        while (value > 0) {
+            int digit = (int)(value % base);
+            result.append(DIGITS[digit]);
+            value /= base;
+        }
+        return result.reverse().toString();
+    }
+
+    private static String toBaseNFrac(double frac, int base) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < PRECISION && frac > 0; i++) {
+            frac *= base;
+            int digit = (int) frac;
+            result.append(DIGITS[digit]);
+            frac -= digit;
+        }
+        return result.toString();
     }
 
     private static int charToDigit(char c) {
@@ -70,18 +90,20 @@ public class Converter {
         throw new IllegalArgumentException("Unsupported character: " + c);
     }
 
-    private static String toBaseN(BigInteger value, int base) {
-        if (value.equals(BigInteger.ZERO)) return "0";
+    private static char[] initDigits() {
+        char[] digits = new char[MAX_BASE];
+        int index = 0;
 
-        StringBuilder result = new StringBuilder();
-        BigInteger baseBI = BigInteger.valueOf(base);
-
-        while (value.compareTo(BigInteger.ZERO) > 0) {
-            BigInteger[] divRem = value.divideAndRemainder(baseBI);
-            result.append(DIGITS[divRem[1].intValue()]);
-            value = divRem[0];
+        for (char c = '0'; c <= '9'; c++) digits[index++] = c;
+        // skip symbols before A
+        for (char c = 'A'; c <= 126; c++) {
+            digits[index++] = c;
+        }
+        for (char c = 192; index < MAX_BASE; c++) {
+            digits[index++] = c;
         }
 
-        return result.reverse().toString();
+        System.out.println(Arrays.toString(digits));
+        return digits;
     }
 }
