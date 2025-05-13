@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Formatter</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<main layout:fragment="content" class="container mt-4">
+
+    <div th:replace="~{fragments :: error}"></div>
+
+    <form method="post" th:object="${code}" class="needs-validation" novalidate>
+
+        <div class="mb-3">
+            <label for="textId" class="form-label">Text ID:</label>
+            <input type="text" id="textId" th:field="*{id}" class="form-control" placeholder="Enter Id for a code snippet">
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <label for="duration" class="form-label">Duration:</label>
+                <input type="number" min="10" id="duration" th:field="*{keepFor}" class="form-control" placeholder="Time to keep">
+            </div>
+
+            <div class="col-md-6">
+                <label for="timeUnit" class="form-label">Time Unit:</label>
+                <select id="timeUnit" th:field="*{timeUnit}" class="form-select">
+                    <option th:each="unit : ${timeUnits}" th:value="${unit}" th:text="${unit}">Time Unit</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="code" class="form-label">Code to format:</label>
+            <textarea id="code" th:field="*{raw}" rows="20" class="form-control" placeholder="Input your code here..."></textarea>
+        </div>
+
+        <div class="mb-3 d-flex gap-2">
+            <button type="submit" th:formaction="@{/}" class="btn btn-primary">Format</button>
+            <button th:if="${code.formatted}" type="submit" th:formaction="@{/save}" class="btn btn-success">Save</button>
+        </div>
+
+    </form>
+
+    <!-- Comparison block -->
+    <div class="mt-4" th:replace="~{fragments :: comparison}">Code comparison</div>
+
+</main>
+
+</body>
+</html>

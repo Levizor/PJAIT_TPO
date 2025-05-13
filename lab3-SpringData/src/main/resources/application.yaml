@@ -5,16 +5,13 @@ spring:
     name: TPO3
   profiles:
     active: uppercase
-
   h2:
     console:
       path: /h2
-
   datasource:
     url: jdbc:h2:file:./db/dictionary
     username: admin
     password: admin
-
   jpa:
     show-sql: true
     hibernate:

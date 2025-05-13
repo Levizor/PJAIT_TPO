@@ -1,0 +1,13 @@
+spring.application.name: TPO_08
+
+custom:
+  serialization:
+    filename: codes.ser
+
+server:
+  servlet:
+    context-path: /codeFormater
+    session:
+      cookie:
+        max-age: 24h
+      timeout: 30m

@@ -1,0 +1,33 @@
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS roles (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS blogs (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    manager_id BIGINT,
+    FOREIGN KEY (manager_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS articles (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    author_id BIGINT,
+    blog_id BIGINT,
+    FOREIGN KEY (author_id) REFERENCES users(id),
+    FOREIGN KEY (blog_id) REFERENCES blogs(id)
+);
+
+CREATE TABLE IF NOT EXISTS users_roles (
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);

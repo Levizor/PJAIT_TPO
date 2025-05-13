@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:fragment="error" th:if="${error}" class="alert alert-danger text-center" role="alert">
+    <h4 class="alert-heading mb-2" th:text="${error.title}">Error</h4>
+    <p th:text="${error.message}">An error occurred while processing your request.</p>
+</div>
+
+
+<div th:fragment="comparison" th:if="${code.formatted}" class="container my-4">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div th:replace="~{fragments :: code-block('Original', ${code.raw})}"></div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div th:replace="~{fragments :: code-block('Formatted', ${code.formatted})}"></div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="code-block(title, code)" class="code-block">
+    <h3 th:text="${title}" class="pt-2">Some title</h3>
+    <pre th:text="${code}">Some code block text</pre>
+</div>
+
+<header th:fragment="header" class="header bg-primary text-white py-3 mb-4">
+    <div class="container text-center">
+        <h1 class="h3 m-0">Java Code Formatter</h1>
+    </div>
+</header>
+
+<footer th:fragment="footer" class="footer text-center py-2 small border-top">
+    TPO_08 @ PJAIT &copy; 2025
+</footer>
+
+</body>
+</html>

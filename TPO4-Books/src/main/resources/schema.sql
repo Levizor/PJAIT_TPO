@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS publisher (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS book (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    publisher_id BIGINT NOT NULL,
+    FOREIGN KEY (publisher_id) REFERENCES publisher(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS author (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS book_author (
+    book_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
+    PRIMARY KEY (book_id, author_id),
+    FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE CASCADE
+);
+

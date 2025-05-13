@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        form, table { margin-bottom: 2rem; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+        th { background-color: #f2f2f2; }
+        label, select, input { margin-right: 1rem; }
+    </style>
+</head>
+<body>
+<h1>Personal Data Generator</h1>
+
+<form method="post" th:action="@{/}" th:object="${formData}">
+    <label for="entryCount">Number of entries:</label>
+    <input type="number" id="entryCount" th:field="*{numOfEntries}" min="1" required/>
+
+    <label for="language">Language:</label>
+    <select id="language" th:field="*{language}">
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="es">Spanish</option>
+        <option value="it">Italian</option>
+        <option value="uk">Ukrainian</option>
+        <option value="pl">Polish</option>
+        <option value="ja">Japanese</option>
+        <option value="zh">Chinese</option>
+        <option value="pt">Portuguese</option>
+    </select>
+
+    <fieldset>
+        <legend>Additional Fields</legend>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="address"/> Address</label>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="university"/> University</label>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="country"/> Country</label>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="phoneNumber"/> Phone</label>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="email"/> Email</label>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="job"/> Job Title</label>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="company"/> Company</label>
+        <label><input type="checkbox" th:field="*{additionalAttributes}" value="isbn"/> ISBN </label>
+    </fieldset>
+
+    <button type="submit">Generate</button>
+</form>
+
+<div th:if="${errorMessage != null}" style="color: red; margin-bottom: 1rem;">
+    <p th:text="${errorMessage}">Something went wrong</p>
+</div>
+
+<div th:if="${people != null}">
+    <h2>Generated Data</h2>
+    <table>
+        <thead>
+        <tr>
+            <th th:text="${headers.firstName}">First Name</th>
+            <th th:text="${headers.lastName}">Last Name</th>
+            <th th:text="${headers.dateOfBirth}">Date of Birth</th>
+
+            <th th:if="${headers.address != null}" th:text="${headers.address}">Address</th>
+            <th th:if="${headers.university != null}" th:text="${headers.university}">University</th>
+            <th th:if="${headers.country != null}" th:text="${headers.country}">Country</th>
+            <th th:if="${headers.phoneNumber != null}" th:text="${headers.phoneNumber}">Phone</th>
+            <th th:if="${headers.email != null}" th:text="${headers.email}">Email</th>
+            <th th:if="${headers.job != null}" th:text="${headers.job}">Job Title</th>
+            <th th:if="${headers.company != null}" th:text="${headers.company}">Company</th>
+            <th th:if="${headers.isbn != null}" th:text="${headers.isbn}"> ISBN </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person : ${people}">
+            <td th:text="${person.firstName}">John</td>
+            <td th:text="${person.lastName}">Doe</td>
+            <td th:text="${person.dateOfBirth}">1990-01-01</td>
+
+            <td th:if="${person.address != null}" th:text="${person.address}">123 Street</td>
+            <td th:if="${person.university != null}" th:text="${person.university}">MIT</td>
+            <td th:if="${person.country != null}" th:text="${person.country}">USA</td>
+            <td th:if="${person.phoneNumber != null}" th:text="${person.phoneNumber}">+1 555 1234</td>
+            <td th:if="${person.email != null}" th:text="${person.email}">example@email.com</td>
+            <td th:if="${person.job != null}" th:text="${person.job}">Engineer</td>
+            <td th:if="${person.company != null}" th:text="${person.company}">Tech Corp</td>
+            <td th:if="${person.isbn != null}" th:text="${person.isbn}">example.com</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

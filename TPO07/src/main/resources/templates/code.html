@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code View</title>
+    <link rel="stylesheet" th:href="@{/css/formatter.css}">
+</head>
+<body>
+    <div class="code-column">
+        <pre th:text="${code.formatted}"></pre>
+    </div>
+</body>
+</html>

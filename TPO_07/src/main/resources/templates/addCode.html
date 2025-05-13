@@ -1,0 +1,33 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Formatter</title>
+</head>
+<body>
+    <form action="/format" method="post" th:object = "${Code}">
+        <label>
+            Text ID:
+            <input th:field="*{id}" placeholder="Enter Id for a code snippet to be accessible from" >
+        </label>
+
+        <label>
+            Duration:
+            <input th:field="*{keepFor}" min="10" value="60">
+            <select th:field="*{keepFor}">
+                <option th:each="unit: ${TimeUnit}" th:value="${unit}" th:text="${unit}">Time Unit</option>
+            </select>
+        </label>
+        <button type="submit">Submit</button>
+
+        <br>
+        <label for="code">
+            Code to format:
+        </label>
+        <br>
+        <textarea id = "code" th:field = "*{raw}" rows = "40" cols="70" placeholder="Input your code here"></textarea>
+
+    </form>
+
+</body>
+</html>

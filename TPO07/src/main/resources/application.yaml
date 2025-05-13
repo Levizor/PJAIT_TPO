@@ -1,0 +1,5 @@
+spring.application.name: TPO07
+
+custom:
+  serialization:
+    filename: codes.ser

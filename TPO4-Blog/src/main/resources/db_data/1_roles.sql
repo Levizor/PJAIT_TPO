@@ -1,0 +1,6 @@
+INSERT INTO roles (name) VALUES
+('ADMIN'),
+('EDITOR'),
+('AUTHOR'),
+('MODERATOR'),
+('VIEWER');

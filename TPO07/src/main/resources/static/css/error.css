@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 50px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #c0392b;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    background-color: #ffecec;
+    padding: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 10px;
+}

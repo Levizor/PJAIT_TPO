@@ -1,0 +1,8 @@
+spring:
+  application.name: TPO_06
+
+  thymeleaf:
+    encoding: UTF-8
+
+  messages:
+    encoding: UTF-8

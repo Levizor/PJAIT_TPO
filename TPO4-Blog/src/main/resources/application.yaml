@@ -1,0 +1,18 @@
+spring:
+  banner:
+    location: banner.txt
+  application:
+    name: Blog
+  datasource:
+    url: jdbc:h2:mem:blog
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+  sql:
+    init:
+      data-locations: classpath:db_data/*.sql
+      schema-locations: classpath:schema.sql

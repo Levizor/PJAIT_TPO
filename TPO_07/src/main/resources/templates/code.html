@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Code Comparison</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+
+    .code-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .code-block {
+      flex: 1;
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 16px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .code-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .mono {
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Code Comparison</h2>
+
+<div class="code-container">
+  <div class="code-block">
+    <div class="code-title">Raw Code</div>
+    <div class="mono" th:text="${code.raw}">Raw code will be shown here...</div>
+  </div>
+  <div class="code-block">
+    <div class="code-title">Formatted Code</div>
+    <div class="mono" th:text="${code.formatted}">Formatted code will be shown here...</div>
+  </div>
+</div>
+
+</body>
+</html>

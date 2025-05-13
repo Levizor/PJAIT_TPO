@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Formatter</title>
+    <link rel="stylesheet" th:href="@{/css/formatter.css}">
+</head>
+<body>
+
+<h2>Java Code Formatter</h2>
+
+<div th:if="${error}" class="error-message">
+    <h2 th:text="${error.title}">Error</h2>
+    <p th:text="${error.message}">An error occurred while processing your request.</p>
+</div>
+
+<form method="post" th:object="${code}" class="formatter-form">
+
+    <label>
+        Text ID:
+        <input type="text" th:field="*{id}" placeholder="Enter Id for a code snippet">
+    </label>
+
+    <label>
+        Duration:
+        <input type="number" min="10" th:field="*{keepFor}">
+        <select th:field="*{timeUnit}">
+            <option th:each="unit : ${timeUnits}" th:value="${unit}" th:text="${unit}">Time Unit</option>
+        </select>
+    </label>
+
+    <label for="code">
+        Code to format:
+    </label>
+    <textarea id="code" th:field="*{raw}" rows="20" cols="100" placeholder="Input your code here..."></textarea>
+
+    <button type="submit" formaction="/formatter">Format</button>
+    <button th:if="${code.formatted}" type="submit" formaction="/save">Save</button>
+
+</form>
+
+<div th:if="${code.formatted}" class="comparison-container">
+    <div class="code-column">
+        <h3>Original</h3>
+        <pre th:text="${code.raw}"></pre>
+    </div>
+    <div class="code-column">
+        <h3>Formatted</h3>
+        <pre th:text="${code.formatted}"></pre>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+<head>
+    <title>Invalid ID</title>
+</head>
+    <main layout:fragment="content">
+        <body>
+            <div th:replace="~{fragments :: error}">Error</div>
+        </body>
+    </main>
+</html>

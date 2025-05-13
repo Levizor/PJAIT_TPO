@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: Books
+
+  datasource:
+    url: jdbc:h2:file:./db/books
+    username: sa
+    password:
+
+  jpa:
+    show-sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:db_data/*.sql
+
