@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{access.title}">Access Link</title>
+</head>
+
+<body>
+<main layout:fragment="content" class="container mt-5">
+
+    <h2 th:text="#{access.header}">Please enter name and password to access the link</h2>
+
+    <form th:action="@{'/manage/' + ${linkId} + '/access'}" method="post" th:object="${accessRequest}">
+        <div class="mb-3">
+            <label for="name" class="form-label" th:text="#{app.name.label}">Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" required />
+            <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label" th:text="#{app.password.label}">Password</label>
+            <input type="password" th:field="*{password}" class="form-control" id="password" required />
+            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+        <button type="submit" class="btn btn-primary" th:text="#{access.submit}">Access</button>
+    </form>
+
+</main>
+</body>
+</html>

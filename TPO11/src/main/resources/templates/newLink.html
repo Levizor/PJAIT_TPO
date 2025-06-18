@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{app.title.newLink}">Create new short link</title>
+</head>
+<body>
+<main layout:fragment="content" class="container mt-4">
+    <div class="row g-4">
+        <div class="col-md-12">
+            <h4 th:text="#{app.title.newLink}"></h4>
+            <form th:action="@{/newLink}" method="post" th:object="${linkRequest}">
+                <div class="mb-3">
+                    <label class="form-label" for="name" th:text="#{app.name.label}">Name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" />
+                    <div class="text-danger mt-1" th:errors="*{name}">Name error</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="targetUrl" th:text="#{app.url.label}">Target URL</label>
+                    <input type="url" class="form-control" id="targetUrl" th:field="*{targetUrl}" />
+                    <div class="text-danger mt-1" th:errors="*{targetUrl}">URL error</div>
+                </div>
+
+                <div id="passwordContainer">
+                    <div class="mb-3">
+                        <label class="form-label" for="password" th:text="#{app.password.label}">Password</label>
+                        <input type="password" class="form-control" id="password" th:field="*{password}"/>
+                        <div class="form-text">
+                            <span th:text="#{app.password.hint}"></span><br>
+                            <span th:text="#{app.password.rules}"></span>
+                        </div>
+                        <div class="text-danger mt-1" th:errors="*{password}">Password error</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" th:text="#{app.submit}">Create</button>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>

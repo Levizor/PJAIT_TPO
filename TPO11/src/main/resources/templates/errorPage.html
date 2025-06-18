@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{error.title}">Error</title>
+</head>
+<body>
+<main layout:fragment="content" class="container mt-5">
+    <h2 th:text="#{error.header}">Error</h2>
+    <p class="text-danger" th:text="${error}">Something went wrong.</p>
+    <a href="/" class="btn btn-primary" th:text="#{button.backToHome}">Back to Home</a>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{link.manage.title}">Manage Link</title>
+</head>
+<body>
+<main layout:fragment="content" class="container mt-5">
+    <h2 th:text="#{link.manage.header}">Manage Link</h2>
+
+    <div th:if="${!editable}">
+        <p><strong>ID:</strong> <span th:text="${linkId}"></span></p>
+        <p><strong th:text="#{link.name}">Name</strong>: <span th:text="${link.name}"></span></p>
+        <p><strong th:text="#{link.targetUrl}">Target URL</strong>:
+            <a th:href="${link.targetUrl}" th:text="${link.targetUrl}" target="_blank"></a>
+        </p>
+        <p><strong th:text="#{link.visits}">Visits</strong>: <span th:text="${link.visits}"></span></p>
+
+        <p class="text-muted" th:text="#{link.manage.noteditable}">Editing is not allowed for unprotected links.</p>
+    </div>
+
+    <form th:if="${editable}" th:action="@{'/manage/' + ${linkId} + '/update'}" method="post" th:object="${link}">
+        <div class="mb-3">
+            <label for="name" class="form-label" th:text="#{link.name}">Name</label>
+            <input type="text" th:field="*{name}" id="name" class="form-control" required />
+            <div class="text-danger mt-1" th:errors="*{name}">Name error</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="targetUrl" class="form-label" th:text="#{link.targetUrl}">Target URL</label>
+            <input type="url" th:field="*{targetUrl}" id="targetUrl" class="form-control" required />
+            <div class="text-danger mt-1" th:errors="*{targetUrl}">URL error</div>
+        </div>
+        <p><strong th:text="#{link.visits}">Visits</strong>: <span th:text="${link.visits}"></span></p>
+
+        <button type="submit" class="btn btn-success" th:text="#{link.manage.update}">Update Link</button>
+    </form>
+
+    <form th:if="${editable}" th:action="@{'/manage/' + ${linkId} + '/delete'}" method="post" class="mt-3">
+        <button type="submit" class="btn btn-danger" th:text="#{link.manage.delete}" onclick="return confirm('Are you sure you want to delete this link?');">Delete Link</button>
+    </form>
+</main>
+</body>
+</html>

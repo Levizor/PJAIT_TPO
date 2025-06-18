@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{link.manage.title}">Search Link</title>
+</head>
+<body>
+<main layout:fragment="content" class="container mt-5">
+    <h2 th:text="#{link.manage.header}">Find Your Link</h2>
+
+    <form th:action="@{/searchLink}" method="post">
+        <div class="mb-3">
+            <label for="linkId" class="form-label" th:text="#{link.name}">Enter Link ID</label>
+            <input type="text" class="form-control" id="linkId" name="linkId" required>
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{button.backToHome}">Manage Link</button>
+    </form>
+
+    <div class="mt-3 text-danger" th:if="${error}" th:text="${error}"></div>
+</main>
+</body>
+</html>

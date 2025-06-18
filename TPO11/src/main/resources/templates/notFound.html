@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{app.notfound.title}">Link Not Found</title>
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center vh-100">
+
+<div class="text-center">
+    <h1 class="display-4 text-danger" th:text="#{app.notfound.header}">404 - Link Not Found</h1>
+    <p class="lead mb-4" th:text="#{app.notfound.message}">
+        The link you are looking for does not exist or has been removed.
+    </p>
+    <a href="/" class="btn btn-primary" th:text="#{app.notfound.back}">Return to Home</a>
+</div>
+
+</body>
+</html>
